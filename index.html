@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Vysak — Every Event, Anywhere in India</title>
+<meta name="description" content="Vysak is a Warangal-based event management company organising weddings, corporate events, concerts, college fests and every other occasion across India." />
+<meta name="theme-color" content="#050505" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* ---------- HERO ---------- */
+.hero{
+  position:relative;
+  min-height:100vh;min-height:100svh;
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;overflow:hidden;
+  background:radial-gradient(circle at 50% 38%,#1a1508 0%,#050505 72%);
+}
+.hero-video{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;z-index:0;opacity:.8;
+}
+.hero::after{
+  content:"";position:absolute;inset:0;z-index:1;
+  background:linear-gradient(to bottom,
+    rgba(5,5,5,.55) 0%,
+    rgba(5,5,5,.2) 42%,
+    rgba(5,5,5,.97) 100%);
+}
+.hero-content{position:relative;z-index:2;padding:0 22px;max-width:660px;margin-top:55vh;}
+.eyebrow{
+  font-size:10px;letter-spacing:.42em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:20px;
+}
+.hero h1{
+  font-family:'Cinzel',serif;font-weight:700;
+  font-size:clamp(48px,17vw,112px);
+  letter-spacing:.14em;line-height:1;margin-bottom:16px;
+}
+.hero-tagline{
+  font-size:clamp(15px,4.4vw,20px);
+  color:#cfc9bb;font-weight:300;margin-bottom:36px;
+}
+.scroll-hint{
+  position:absolute;bottom:24px;left:50%;transform:translateX(-50%);
+  z-index:2;font-size:9px;letter-spacing:.35em;text-transform:uppercase;
+  color:var(--muted);
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+}
+.scroll-hint i{
+  display:block;width:1px;height:40px;
+  background:linear-gradient(to bottom,var(--gold),transparent);
+  animation:drop 2s ease-in-out infinite;
+}
+@keyframes drop{
+  0%,100%{opacity:.25;transform:scaleY(.5)}
+  50%{opacity:1;transform:scaleY(1)}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<header class="nav">
+  <a href="#top" class="brand gold">VYSAK</a>
+  <a href="#message" class="nav-cta">Message Us</a>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="top">
+  <video class="hero-video" autoplay muted loop playsinline preload="auto"
+         poster="assets/hero-poster.jpg">
+    <source src="assets/hero.mp4" type="video/mp4">
+  </video>
+  <div class="hero-content">
+    <a href="#message" class="btn">Message Us</a>
+  </div>
+  <div class="scroll-hint"><i></i>Scroll</div>
+</section>
+
+<!-- ================= MESSAGE US ================= -->
+<section class="section" id="message">
+  <div class="section-head reveal">
+    <p class="section-kicker">Let's Talk</p>
+    <h2 class="section-title gold">Message Us</h2>
+    <p class="section-sub">Tell us what you're planning. Fill this in and it comes straight to our WhatsApp — we'll call you back.</p>
+    <div class="divider"></div>
+  </div>
+
+  <form class="form reveal" id="enquiryForm">
+    <div class="field">
+      <label for="name">Your Name</label>
+      <input id="name" name="name" type="text" placeholder="Full name" required>
+    </div>
+    <div class="field">
+      <label for="phone">Phone Number</label>
+      <input id="phone" name="phone" type="tel" inputmode="tel" placeholder="10-digit mobile number" required>
+    </div>
+    <div class="field">
+      <label for="eventType">Type of Event</label>
+      <select id="eventType" name="event" required>
+        <option value="">Select an event type</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="city">City / Location</label>
+      <input id="city" name="city" type="text" placeholder="e.g. Warangal, Hyderabad, Goa">
+    </div>
+    <div class="field">
+      <label for="date">Event Date</label>
+      <input id="date" name="date" type="date">
+    </div>
+    <div class="field">
+      <label for="details">Tell Us More</label>
+      <textarea id="details" name="details" placeholder="Guest count, budget range, theme, anything else..."></textarea>
+    </div>
+    <button type="submit" class="btn">Send on WhatsApp</button>
+    <p class="form-note" id="formStatus">
+      Prefer email? Write to <a href="mailto:vysak.pvt@gmail.com">vysak.pvt@gmail.com</a>
+    </p>
+  </form>
+</section>
+
+<!-- ================= WHAT WE DO ================= -->
+<section class="section" id="what-we-do">
+  <div class="section-head reveal">
+    <p class="section-kicker">Our Services</p>
+    <h2 class="section-title gold">What We Do</h2>
+    <p class="section-sub">Tap any event type to see our work and full details.</p>
+    <div class="divider"></div>
+  </div>
+  <div class="grid" id="eventGrid"></div>
+</section>
+
+<!-- ================= OUR EVENTS ================= -->
+<section class="section" id="our-events">
+  <div class="section-head reveal">
+    <p class="section-kicker">Portfolio</p>
+    <h2 class="section-title gold">Our Events</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="soon reveal">
+    <div class="soon-dot"></div>
+    <h3 class="gold">Coming Soon</h3>
+    <p>We're putting together our recent work from across India. Follow us on
+      <a href="https://www.instagram.com/vysak.co" target="_blank" rel="noopener">Instagram</a>
+      to see it first.</p>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section class="section" id="about">
+  <div class="section-head reveal">
+    <p class="section-kicker">Who We Are</p>
+    <h2 class="section-title gold">About Vysak</h2>
+    <div class="divider"></div>
+  </div>
+
+  <div class="about-text reveal">
+    <p><strong>Vysak</strong> is an event management company based in Warangal, Telangana, built on one belief — a great event should feel effortless for the people it's thrown for.</p>
+    <p>We started with a small team and a large idea: that world-class event production shouldn't be limited to the big cities. Today we plan and execute weddings, corporate events, concerts, college fests, exhibitions and private celebrations across India — from intimate gatherings of fifty to full-scale productions for thousands.</p>
+    <p>What makes us different is how we work. <strong>One team, one point of contact, one plan</strong> — from the first call to the final clean-up. Venue, decor, sound, light, catering, hospitality and on-ground coordination all sit under a single roof, so you get to be a guest at your own event.</p>
+    <p>Every event we take on gets the same promise: a crew that shows up early, a run-sheet that's been checked twice, and a team that doesn't leave until everything is exactly right.</p>
+
+    <div class="stats">
+      <div class="stat"><b>12+</b><span>Event Types</span></div>
+      <div class="stat"><b>Pan-India</b><span>Coverage</span></div>
+      <div class="stat"><b>One</b><span>Point of Contact</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT / FOOTER ================= -->
+<footer class="footer" id="contact">
+  <div class="section-head reveal" style="margin-bottom:0">
+    <p class="section-kicker">Get in Touch</p>
+    <h2 class="section-title gold">Contact</h2>
+    <div class="divider"></div>
+  </div>
+
+  <div class="contact-list reveal">
+    <a class="contact-link" href="https://wa.me/919908567103" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-12.5 7.4L3 21l2.2-5.3A8.4 8.4 0 1 1 21 11.5z"/></svg>
+      <div><small>WhatsApp</small><b>+91 99085 67103</b></div>
+    </a>
+
+    <a class="contact-link" href="mailto:vysak.pvt@gmail.com">
+      <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+      <div><small>Email</small><b>vysak.pvt@gmail.com</b></div>
+    </a>
+
+    <a class="contact-link" href="https://www.instagram.com/vysak.co" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="#d4af37" stroke="none"/></svg>
+      <div><small>Instagram</small><b>@vysak.co</b></div>
+    </a>
+
+    <div class="contact-link" style="cursor:default">
+      <svg viewBox="0 0 24 24"><path d="M12 21s7-5.5 7-11a7 7 0 1 0-14 0c0 5.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+      <div><small>Based In</small><b>Warangal, Telangana · Serving all of India</b></div>
+    </div>
+  </div>
+
+  <p class="footer-bottom">
+    © <span id="year"></span> Vysak. Every event, anywhere in India.
+  </p>
+</footer>
+
+<script src="data.js"></script>
+<script>
+(function(){
+  "use strict";
+
+  var WA_NUMBER = "919908567103"; // country code + number, digits only
+
+  /* ---------- 1. Build "What We Do" grid + form dropdown ---------- */
+  var grid   = document.getElementById("eventGrid");
+  var select = document.getElementById("eventType");
+
+  EVENTS.forEach(function(ev, i){
+    /* Card */
+    var card = document.createElement("a");
+    card.className = "card reveal";
+    card.href = "event.html?id=" + encodeURIComponent(ev.id);
+    card.style.transitionDelay = (i * 45) + "ms";
+
+    var img = "";
+    if (ev.image) {
+      img = '<img src="' + ev.image + '" alt="' + ev.name + '" loading="lazy">';
+    }
+    card.innerHTML = img +
+      '<div class="card-body">' +
+        '<div class="card-name">' + ev.name + '</div>' +
+        '<div class="card-arrow">View →</div>' +
+      '</div>';
+    grid.appendChild(card);
+
+    /* Dropdown option */
+    var opt = document.createElement("option");
+    opt.value = ev.name;
+    opt.textContent = ev.name;
+    select.appendChild(opt);
+  });
+
+  /* ---------- 2. Pre-select event type if arriving from a detail page ---------- */
+  var pre = new URLSearchParams(location.search).get("event");
+  if (pre) {
+    var match = EVENTS.filter(function(e){
+      return e.id === pre || e.name === pre;
+    })[0];
+    if (match) select.value = match.name;
+  }
+
+  /* ---------- 3. Form → WhatsApp ---------- */
+  var form   = document.getElementById("enquiryForm");
+  var status = document.getElementById("formStatus");
+
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+
+    var d = new FormData(form);
+    var lines = [
+      "*New Event Enquiry — Vysak*",
+      "",
+      "Name: " + (d.get("name") || "-"),
+      "Phone: " + (d.get("phone") || "-"),
+      "Event: " + (d.get("event") || "-"),
+      "City: " + (d.get("city") || "-"),
+      "Date: " + (d.get("date") || "Not decided"),
+      "",
+      "Details: " + (d.get("details") || "-")
+    ];
+
+    var url = "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(lines.join("\n"));
+    window.open(url, "_blank");
+
+    status.innerHTML = 'Opening WhatsApp… If nothing opened, ' +
+      '<a href="' + url + '">tap here</a>.';
+  });
+
+  /* ---------- 4. Scroll reveal ---------- */
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting) {
+          en.target.classList.add("in");
+          io.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+
+    document.querySelectorAll(".reveal").forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll(".reveal").forEach(function(el){ el.classList.add("in"); });
+  }
+
+  /* ---------- 5. Footer year ---------- */
+  document.getElementById("year").textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+  </html>
