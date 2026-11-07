@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Event — Vysak</title>
+<meta name="theme-color" content="#050505" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.detail{max-width:900px;margin:0 auto;padding:96px var(--pad) 70px}
+.back{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:10px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--gold-dim);margin-bottom:28px;
+}
+.back:active{color:var(--gold)}
+.detail h1{
+  font-family:'Cinzel',serif;font-weight:700;
+  font-size:clamp(30px,9vw,52px);
+  letter-spacing:.06em;line-height:1.15;margin-bottom:12px;
+}
+.detail .tagline{color:var(--muted);font-size:15px;margin-bottom:30px}
+
+.video-wrap{
+  position:relative;width:100%;
+  aspect-ratio:4/5;max-height:72vh;
+  border-radius:16px;overflow:hidden;
+  border:1px solid var(--line);
+  background:radial-gradient(circle at 50% 30%,#171204 0%,#070707 72%);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:32px;
+}
+@media (min-width:700px){
+  .video-wrap{aspect-ratio:16/9;max-height:none}
+}
+.video-wrap video{width:100%;height:100%;object-fit:cover}
+.video-placeholder{text-align:center;padding:30px}
+.video-placeholder .dot{
+  width:9px;height:9px;border-radius:50%;background:var(--gold);
+  margin:0 auto 18px;animation:pulse 2s infinite;
+}
+.video-placeholder p{
+  font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);
+}
+
+.info-list{display:grid;gap:14px;margin:0 0 36px;padding:0;list-style:none}
+.info-list li{position:relative;padding-left:26px;font-size:15px;color:#c8c2b5}
+.info-list li::before{
+  content:"";position:absolute;left:0;top:.62em;
+  width:8px;height:8px;
+  border:1px solid var(--gold);transform:rotate(45deg);
+}
+
+.cta-box{
+  border:1px solid var(--line);border-radius:16px;
+  padding:28px 22px;text-align:center;background:#0a0a0a;
+}
+.cta-box p{color:var(--muted);font-size:14px;margin-bottom:20px}
+
+.others{margin-top:56px;border-top:1px solid rgba(212,175,55,.14);padding-top:34px}
+.others h2{
+  font-family:'Cinzel',serif;font-size:13px;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:18px;
+}
+.chips{display:flex;flex-wrap:wrap;gap:9px}
+.chip{
+  border:1px solid var(--line);border-radius:999px;
+  padding:9px 16px;font-size:12px;color:#c8c2b5;transition:.25s;
+}
+.chip:active{border-color:var(--gold);color:var(--gold)}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a href="index.html" class="brand gold">VYSAK</a>
+  <a href="index.html#message" class="nav-cta">Message Us</a>
+</header>
+
+<main class="detail">
+  <a href="index.html#what-we-do" class="back">← What We Do</a>
+
+  <p class="section-kicker">Vysak Presents</p>
+  <h1 class="gold" id="evName">Event</h1>
+  <p class="tagline" id="evTagline"></p>
+
+  <div class="video-wrap" id="evVideoWrap"></div>
+
+  <ul class="info-list" id="evInfo"></ul>
+
+  <div class="cta-box">
+    <p>Planning something like this? Let's talk about it.</p>
+    <a class="btn" id="evCta" href="index.html#message">Enquire About This Event</a>
+  </div>
+
+  <div class="others">
+    <h2>Explore Other Events</h2>
+    <div class="chips" id="evChips"></div>
+  </div>
+</main>
+
+<script src="data.js"></script>
+<script>
+(function(){
+  "use strict";
+
+  var id = new URLSearchParams(location.search).get("id");
+  var ev = EVENTS.filter(function(e){ return e.id === id; })[0] || EVENTS[0];
+
+  document.title = ev.name + " — Vysak";
+  document.getElementById("evName").textContent    = ev.name;
+  document.getElementById("evTagline").textContent = ev.tagline || "";
+
+  /* Video or placeholder */
+  var wrap = document.getElementById("evVideoWrap");
+  if (ev.video) {
+    wrap.innerHTML =
+      '<video controls playsinline preload="metadata"' +
+      (ev.image ? ' poster="' + ev.image + '"' : '') + '>' +
+      '<source src="' + ev.video + '" type="video/mp4">' +
+      '</video>';
+  } else {
+    wrap.innerHTML =
+      '<div class="video-placeholder">' +
+        '<div class="dot"></div>' +
+        '<p>Video coming soon</p>' +
+      '</div>';
+  }
+
+  /* Info bullets */
+  var info = document.getElementById("evInfo");
+  (ev.info || []).forEach(function(line){
+    var li = document.createElement("li");
+    li.textContent = line;
+    info.appendChild(li);
+  });
+
+  /* Enquire button carries the event id back to the homepage */
+  document.getElementById("evCta").href =
+    "index.html?event=" + encodeURIComponent(ev.id) + "#message";
+
+  /* Other events */
+  var chips = document.getElementById("evChips");
+  EVENTS.filter(function(e){ return e.id !== ev.id; }).forEach(function(e){
+    var a = document.createElement("a");
+    a.className = "chip";
+    a.href = "event.html?id=" + encodeURIComponent(e.id);
+    a.textContent = e.name;
+    chips.appendChild(a);
+  });
+})();
+</script>
+</body>
+</html>
